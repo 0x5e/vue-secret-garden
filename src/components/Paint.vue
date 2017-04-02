@@ -1,23 +1,31 @@
 <template>
   <div class="paint">
-    <h1>{{ msg }}</h1>
-    <table cellpadding="20">
-      <td rowspan="5" valign="top" v-for="option in options" v-bind:style="{ background: option }" v-bind:title="option" v-on:click="select">
-      </td>
-    </table>
-    <span>
-      <a>联系方式:</a>
-      <input type="phone" v-model="phone" placeholder="手机号/邮箱">
-      <button v-on:click="submit">上传</button>
-    </span>
-    <p/>
-    <canvas id="canvas" width="800" height="800" v-on:click="click"></canvas>
+    <div class="top">
+      <table cellpadding="10" cellspacing="0">
+        <td v-for="color in colors"
+          v-bind:class="{active: (color === picked)}"
+          v-bind:style="{ background: color }"
+          v-bind:title="color"
+          v-on:click="select"/>
+      </table>
+    </div>
+    <div class="canvas-container">
+      <canvas id="canvas" v-on:click="click"></canvas>  
+    </div>
+    <div class="bottom">
+      <span>
+        联系方式:
+        <input type="phone" v-model="phone" placeholder="手机号/邮箱">
+        <button v-on:click="submit">上传</button>
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
 import AV from 'leancloud-storage'
 import 'floodfill'
+import pinchZoom from 'pinch-zoom'
 
 export default {
   name: 'paint',
@@ -32,13 +40,14 @@ export default {
       // '#f25f5c',
       // '#ffe066',
       // '#247ba0',
-      // '#70c1b3',
+      // '#70c1b3'
     ]
 
     return {
       msg: 'Secret Garden',
       picked: colors[0],
-      options: colors,
+      colors: colors,
+      imgSrc: 'static/gezi1.1.png',
       phone: ''
     }
   },
@@ -66,10 +75,22 @@ export default {
       let ctx = canvas.getContext('2d')
 
       let img = new Image()
-      img.src = 'static/bg.jpeg'
+      img.src = this.imgSrc
       img.onload = () => {
+        canvas.width = img.width
+        canvas.height = img.height
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+
+        // this.pinchZoomInit()
       }
+    },
+
+    pinchZoomInit () {
+      let canvas = document.querySelector('#canvas')
+      pinchZoom(canvas, {
+        draggable: true,
+        maxScale: 4
+      })
     },
 
     select (event) {
@@ -125,13 +146,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.canvas-container {
+  width: 90vw;
+  height: 90vw;
+  margin: 5vw;
+  background: #f0f0f0;
+  border: thin solid black;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+}
 #canvas {
-  /*width: 80%;*/
-  /*height: 80%;*/
-},
-#paint {
-  /*width: 100%;*/
-  /*height: 100%;*/
-  /*background: #f0f0f0;*/
+  margin: 5vw;
+}
+.active {
+  border: thin solid black;
 }
 </style>

@@ -18,4 +18,7 @@ export default {
   text-align: center;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+body {
+  margin: 0;
+}
 </style>
