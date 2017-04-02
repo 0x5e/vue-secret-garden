@@ -1,15 +1,15 @@
 <template>
   <div class="paint">
     <h1>{{ msg }}</h1>
-    <td id="option" v-for="option in options" v-bind:style="{ background: option }" >
-      <input type="radio" v-bind:value="option" v-model="picked" />
-      <a>{{option}}</a>
-    </td>
-    <td>
+    <table cellpadding="20">
+      <td rowspan="5" valign="top" v-for="option in options" v-bind:style="{ background: option }" v-bind:title="option" v-on:click="select">
+      </td>
+    </table>
+    <span>
       <a>联系方式:</a>
       <input type="phone" v-model="phone" placeholder="手机号/邮箱">
       <button v-on:click="submit">上传</button>
-    </td>
+    </span>
     <p/>
     <canvas id="canvas" width="800" height="800" v-on:click="click"></canvas>
   </div>
@@ -28,6 +28,11 @@ export default {
       '#b2dbbf',
       '#f3ffbd',
       '#ff1654'
+      // '#50514f',
+      // '#f25f5c',
+      // '#ffe066',
+      // '#247ba0',
+      // '#70c1b3',
     ]
 
     return {
@@ -65,6 +70,11 @@ export default {
       img.onload = () => {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
       }
+    },
+
+    select (event) {
+      this.picked = event.toElement.title
+      console.log('select: ' + this.picked)
     },
 
     click (event) {
@@ -122,11 +132,6 @@ export default {
 #paint {
   /*width: 100%;*/
   /*height: 100%;*/
-  background: #f0f0f0;
-},
-a {
-  /*width: 200;*/
-  /*height: 100;*/
-  background: rgba(0,0,0,0);
+  /*background: #f0f0f0;*/
 }
 </style>
