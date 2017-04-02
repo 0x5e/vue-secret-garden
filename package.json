@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "floodfill": "^2.1.0",
+    "floodfill": "0x5e/floodfill.js",
     "leancloud-storage": "^2.1.4",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0"
