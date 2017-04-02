@@ -1,14 +1,6 @@
 <template>
   <div class="paint">
-    <div class="top">
-      <table cellpadding="10" cellspacing="0">
-        <td v-for="color in colors"
-          v-bind:class="{active: (color === picked)}"
-          v-bind:style="{ background: color }"
-          v-bind:title="color"
-          v-on:click="select"/>
-      </table>
-    </div>
+    <color-picker ref="picker"></color-picker>
     <div class="canvas-container">
       <canvas id="canvas" v-on:click="click"></canvas>  
     </div>
@@ -26,27 +18,12 @@
 import AV from 'leancloud-storage'
 import 'floodfill'
 import pinchZoom from 'pinch-zoom'
+import ColorPicker from './ColorPicker.vue'
 
 export default {
   name: 'paint',
   data () {
-    let colors = [
-      '#247ba0',
-      '#70c1b3',
-      '#b2dbbf',
-      '#f3ffbd',
-      '#ff1654'
-      // '#50514f',
-      // '#f25f5c',
-      // '#ffe066',
-      // '#247ba0',
-      // '#70c1b3'
-    ]
-
     return {
-      msg: 'Secret Garden',
-      picked: colors[0],
-      colors: colors,
       imgSrc: 'static/gezi1.1.png',
       phone: ''
     }
@@ -93,11 +70,6 @@ export default {
       })
     },
 
-    select (event) {
-      this.picked = event.toElement.title
-      console.log('select: ' + this.picked)
-    },
-
     click (event) {
       let {offsetX, offsetY} = event
       console.log('click: ' + [offsetX, offsetY])
@@ -105,7 +77,7 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
 
-      ctx.fillStyle = this.picked
+      ctx.fillStyle = this.$refs.picker.color
       ctx.fillFlood(offsetX, offsetY, 32)
     },
 
@@ -138,8 +110,11 @@ export default {
         btn.disabled = false
       })
     }
-  }
+  },
 
+  components: {
+    ColorPicker
+  }
 }
 
 </script>
@@ -157,8 +132,5 @@ export default {
 }
 #canvas {
   margin: 5vw;
-}
-.active {
-  border: thin solid black;
 }
 </style>
