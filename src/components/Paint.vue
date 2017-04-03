@@ -1,31 +1,22 @@
 <template>
   <div class="paint">
+    <canvas id="canvas" v-on:click="click"></canvas>
     <color-picker ref="picker"></color-picker>
-    <div class="canvas-container">
-      <canvas id="canvas" v-on:click="click"></canvas>  
-    </div>
-    <div class="bottom">
-      <span>
-        联系方式:
-        <input type="phone" v-model="phone" placeholder="手机号/邮箱">
-        <button v-on:click="submit">上传</button>
-      </span>
-    </div>
+    <button id="done-btn" v-on:click="next">✅</button>
   </div>
 </template>
 
 <script>
 import AV from 'leancloud-storage'
 import 'floodfill'
-import pinchZoom from 'pinch-zoom'
+import PinchZoom from 'pinch-zoom'
 import ColorPicker from './ColorPicker.vue'
 
 export default {
   name: 'paint',
   data () {
     return {
-      imgSrc: 'static/gezi1.1.png',
-      phone: ''
+      imgSrc: 'static/gezi1.1.png'
     }
   },
 
@@ -56,29 +47,47 @@ export default {
       img.onload = () => {
         canvas.width = img.width
         canvas.height = img.height
+
+        // Background
+        ctx.fillStyle = 'white'
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
 
-        // this.pinchZoomInit()
+        this.pinchZoomInit()
       }
     },
 
     pinchZoomInit () {
       let canvas = document.querySelector('#canvas')
-      pinchZoom(canvas, {
+      PinchZoom(canvas, {
         draggable: true,
-        maxScale: 4
+        maxScale: 5
       })
     },
 
     click (event) {
-      let {offsetX, offsetY} = event
-      console.log('click: ' + [offsetX, offsetY])
-
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
 
+      let x = event.offsetX
+      let y = event.offsetY
+      console.log('click: ' + [x, y])
+
+      let data = ctx.getImageData(x, y, 1, 1).data
+      if (data[0] === 0 && data[1] === 0 && data[2] === 0) {
+        console.log('skip the line')
+        return
+      }
+
       ctx.fillStyle = this.$refs.picker.color
-      ctx.fillFlood(offsetX, offsetY, 32)
+      ctx.fillFlood(x, y, 32)
+    },
+
+    next () {
+      alert('开发中。。。')
+      // let canvas = document.getElementById('canvas')
+      // let imgSrc = canvas.toDataURL('image/jpeg')
     },
 
     submit (event) {
@@ -121,16 +130,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.canvas-container {
-  width: 90vw;
-  height: 90vw;
-  margin: 5vw;
+.paint {
+  width: 100vw;
+  height: 100vh;
   background: #f0f0f0;
-  border: thin solid black;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
+  /*overflow: scroll;*/
 }
-#canvas {
-  margin: 5vw;
+#done-btn {
+  width: 10vw;
+  height: 10vw;
+  background: #303030;
+  border-width: 0;
+
+  position: absolute;
+  right: 5vw;
+  bottom: 5vh;
 }
 </style>

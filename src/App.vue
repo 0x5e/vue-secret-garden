@@ -17,6 +17,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  /*-webkit-overflow-scrolling: touch;*/
 }
 body {
   margin: 0;
