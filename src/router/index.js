@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Select from '@/components/Select'
 import Paint from '@/components/Paint'
 import Submit from '@/components/Submit'
@@ -10,6 +11,10 @@ export default new Router({
   routes: [
     {
       path: '/',
+      redirect: '/select'
+    },
+    {
+      path: '/select',
       name: 'Select',
       component: Select
     },

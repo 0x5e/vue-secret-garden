@@ -40,15 +40,15 @@ export default {
 
 <style scoped>
 .select {
-  margin: 2vw;
+  margin: 5vw;
 }
 .item {
   position: relative;
+  margin: 5vw;
 }
 .pic {
   height: 40vw;
   width: auto;
-  margin: 2vw;
   background: #ffffff;
 }
 .name {
@@ -58,6 +58,5 @@ export default {
   font-size: 5vw;
   color: black;
   background: white;
-  margin: 2vw;
 }
 </style>

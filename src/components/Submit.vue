@@ -72,34 +72,35 @@ export default {
 
 <style scoped>
 .submit {
-  margin: 5vw;
+  width: 90vw;
+  margin: 0 auto;
 }
 .pic {
   /*width: 80vw;*/
   height: 40vh;
   width: auto;
   background: #ffffff;
+  margin: 2vw;
 }
 .name {
   font-size: 6vw;
   text-align: left;
-  margin-top: 5vw;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
 }
 .text {
   font-size: 4.5vw;
   text-align: left;
-  margin-top: 2vw;
-  margin-bottom: 5vw;
 }
 #msg {
   width: 80vw;
   height: 15vh;
   padding: 3vw;
-  font-size: 5vw;
+  font-size: 4.5vw;
+  margin: 5vw;
 }
 #submit {
   width: 30vw;
   font-size: 5vw;
-  margin-top: 2vw;
 }
 </style>
