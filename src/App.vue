@@ -5,6 +5,12 @@
 </template>
 
 <script>
+import AV from 'leancloud-storage'
+AV.init({
+  appId: process.env.LEANCLOUD_APPID,
+  appKey: process.env.LEANCLOUD_APPKEY
+})
+
 export default {
   name: 'app'
 }
@@ -21,5 +27,8 @@ export default {
 }
 body {
   margin: 0;
+}
+html {
+  background: #f0f0f0;
 }
 </style>
