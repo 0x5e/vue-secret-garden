@@ -1,6 +1,6 @@
 <template>
   <div class="paint">
-    <canvas id="canvas" v-on:click="click"></canvas>
+    <canvas id="canvas" v-on:click="click" hidden></canvas>
     <color-picker ref="picker"></color-picker>
     <button id="done-btn" v-on:click="next">✅</button>
   </div>
@@ -44,9 +44,11 @@ export default {
       img.onload = () => {
         this.canvas.width = img.width
         this.canvas.height = img.height
+        this.canvas.hidden = false
 
         this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 
+        // todo 性能优化
         this.pinchZoomInit()
       }
     },
@@ -95,7 +97,7 @@ export default {
 .paint {
   width: 100vw;
   height: 100vh;
-  /*overflow: scroll;*/
+  overflow: scroll;
 }
 #canvas {
   background: #ffffff;
