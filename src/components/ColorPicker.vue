@@ -71,7 +71,7 @@ export default {
   height: 10vw;
   border-width: 0;
 
-  position: absolute;
+  position: fixed;
   left: 5vw;
   bottom: 5vh;
 }
@@ -80,7 +80,7 @@ export default {
   height: 25vw;
   padding: 5vw;
 
-  position: absolute;
+  position: fixed;
   left: 5vw;
   bottom: 5vh;
   background: #b0b0b0;

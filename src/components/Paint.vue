@@ -106,7 +106,7 @@ export default {
   background: #303030;
   border-width: 0;
 
-  position: absolute;
+  position: fixed;
   right: 5vw;
   bottom: 5vh;
 }
