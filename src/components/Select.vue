@@ -1,12 +1,13 @@
 <template>
   <div class="select">
-    <router-link class="list"
+    <div class="item" 
       v-for="(item, idx) in list"
-      :to="{name: 'Paint', params: item}"
       :key="idx">
-      <img class="pic" v-bind:src="item.img"></img>
+      <router-link :to="{name: 'Paint', params: item}">
+        <img class="pic" v-bind:src="item.img"></img>
+      </router-link>
       <span class="name">{{item.name}}</span>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -41,12 +42,11 @@ export default {
 .select {
   margin: 2vw;
 }
-.list {
+.item {
   position: relative;
 }
 .pic {
-  /*width: 80vw;*/
-  height: 40vh;
+  height: 40vw;
   width: auto;
   margin: 2vw;
   background: #ffffff;
