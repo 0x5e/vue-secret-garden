@@ -28,6 +28,12 @@ export default {
     }
   },
 
+  beforeCreate () {
+    if (!this.$route.params.img) {
+      this.$router.replace('/')
+    }
+  },
+
   mounted () {
     if (!CanvasRenderingContext2D.prototype.fillFlood) {
       alert('CanvasRenderingContext2D.fillFlood() not supported')

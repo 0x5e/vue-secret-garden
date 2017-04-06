@@ -28,6 +28,12 @@ export default {
     }
   },
 
+  beforeCreate () {
+    if (!this.$route.params.img) {
+      this.$router.replace('/')
+    }
+  },
+
   methods: {
     submit () {
       let b64data = this.$route.params.img.replace(/^data:image\/(png|jpg);base64,/, '')
