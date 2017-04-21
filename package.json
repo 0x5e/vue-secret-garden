@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "floodfill": "0x5e/floodfill.js",
+    "jquery": "^3.2.1",
+    "jquery.panzoom": "^3.2.2",
     "leancloud-storage": "^2.1.4",
     "pinch-zoom": "^0.3.8",
     "vue": "^2.2.2",

@@ -10,6 +10,8 @@
 import 'floodfill'
 import PinchZoom from 'pinch-zoom'
 import ColorPicker from './ColorPicker'
+import $ from 'jquery'
+import Panzoom from 'jquery.panzoom' // eslint-disable-line
 
 export default {
   name: 'paint',
@@ -56,6 +58,8 @@ export default {
 
         // todo 性能优化
         this.pinchZoomInit()
+
+        // this.PanzoomInit()
       }
     },
 
@@ -64,6 +68,21 @@ export default {
         draggable: true,
         maxScale: 5
       })
+    },
+
+    PanzoomInit () {
+      $('#canvas').panzoom()
+      $('#canvas').panzoom('option', {
+        increment: 1,
+        minScale: 0.2,
+        maxScale: 5,
+        duration: 500
+      })
+      $('#canvas').on('mousedown touchstart', (e) => {
+        e.stopImmediatePropagation()
+      })
+      // $('#canvas').on('touchstart', this.click)
+      // $('#canvas').click(this.click)
     },
 
     click (event) {

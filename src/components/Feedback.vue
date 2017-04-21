@@ -1,35 +1,28 @@
 <template>
-  <div class="select">
-    <div class="item" 
-      v-for="(img, idx) in $route.params.imgs"
-      :key="idx">
-      <div class="index"
-        v-bind:style="{ background: $route.params.color }">{{idx+1}}</div>
-      <router-link :to="{name: 'Paint', params: {'img': img, 'color': $route.params.color } }">
-        <img class="pic"
-          v-bind:src="img"
-          v-bind:style="{ borderColor: $route.params.color }"></img>
-      </router-link>
-    </div>
+  <div class="feedback">
+    <div>您的马克杯正在孕育</div>
+    <div>它将成为第0位马克宝宝</div>
+    <div>请在接收到手机短信之后</div>
+    <div>前往月牙楼525认领哦~</div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'select',
+  name: 'feedback',
   data () {
     return {
     }
   },
+
   mounted () {
-    // console.log(this.$route.params)
-    document.title = this.$route.params.name
+
   }
 }
 </script>
 
 <style scoped>
-.select {
+.feedback {
   /*margin: 5vw;*/
 }
 .item {

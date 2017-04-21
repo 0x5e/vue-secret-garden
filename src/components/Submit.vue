@@ -1,10 +1,13 @@
 <template>
   <div class="submit">
-  <img class="pic" v-bind:src="$route.params.img"></img>
-  <div class="name">杯中语</div>
-  <div class="text">{{$route.params.text}}</div>
-  <textarea id="msg" placeholder="我要留言"></textarea>
-  <button id="submit" v-on:click="submit">提交</button>
+    <div class="title">您的佳作</div>
+    <img class="pic" v-bind:style="{ borderColor: $route.params.color }" v-bind:src="$route.params.img"></img>
+    <img id="tips" src="static/submit_tips.svg" />
+    <div id="tips2" >请留下您的联系方式，方便工作人员与您联系。</div>
+    <input type="number" id="phone" placeholder="手机号" v-bind:style="{ borderColor: $route.params.color }"></input>
+    <button v-on:click="submit">
+      <img id="submit" src="static/submit.svg" />
+    </button>
   </div>
 </template>
 
@@ -20,8 +23,8 @@ export default {
   },
 
   computed: {
-    msg () {
-      return document.getElementById('msg').value
+    phone () {
+      return document.getElementById('phone').value
     },
     author () {
       return ''
@@ -36,11 +39,16 @@ export default {
 
   methods: {
     submit () {
+      if (this.phone.length === 0) {
+        alert('请输入联系方式')
+        return
+      }
+
       let b64data = this.$route.params.img.replace(/^data:image\/(png|jpg);base64,/, '')
       let data = {base64: b64data}
       let file = new AV.File('canvas.png', data)
       file.metaData('author', this.author)
-      file.metaData('msg', this.msg)
+      file.metaData('phone', this.phone)
 
       let btn = document.getElementById('submit')
       btn.disabled = true
@@ -50,9 +58,15 @@ export default {
           console.log('progress: ' + e.progress)
         }
       }, {}).then((file) => {
-        console.log(file.attributes)
+        console.log(file)
         alert('上传成功！')
         // this.queryCounter()
+        this.$router.push({
+          path: 'feedback',
+          query: {
+            'objectId': file.id
+          }
+        })
       }, (error) => {
         console.error(error)
         alert('上传失败！')
@@ -78,35 +92,48 @@ export default {
 
 <style scoped>
 .submit {
-  width: 90vw;
-  margin: 0 auto;
+  /*width: 90vw;*/
+  /*margin: 0 auto;*/
+}
+.title {
+  font-size: 5vw;
+  text-align: center;
+  padding: 3vw;
 }
 .pic {
-  /*width: 80vw;*/
-  height: 40vh;
-  width: auto;
-  background: #ffffff;
-  margin: 2vw;
+  height: 80vw;
+  width: 90vw;
+  /*object-fit: cover;*/
+  object-fit: contain;
+
+  border: 0.6vw solid;
+  border-radius: 5vw;
+  /*border-color: #ff5800;*/
 }
-.name {
-  font-size: 6vw;
-  text-align: left;
-  margin-top: 2vw;
-  margin-bottom: 2vw;
+#tips {
+  width: 50vw;
+  /*height: 10vw;*/
+  height: auto;
+  display: block;
+  margin: 6vw;
 }
-.text {
-  font-size: 4.5vw;
-  text-align: left;
+#tips2 {
+  font-size: 3vw;
+  margin: 3vw;
 }
-#msg {
-  width: 80vw;
-  height: 15vh;
-  padding: 3vw;
-  font-size: 4.5vw;
-  margin: 5vw;
+#phone {
+  width: 75vw;
+  padding: 2vw;
+  font-size: 4vw;
+
+  border: 0.6vw solid;
+  border-radius: 5vw;
+  /*border-color: #ff5800;*/
+  padding-left: 3vw;
 }
 #submit {
-  width: 30vw;
-  font-size: 5vw;
+  width: 45vw;
+  height: auto;
+  margin: 8vw;
 }
 </style>

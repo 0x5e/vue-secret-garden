@@ -13,3 +13,7 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+router.afterEach(route => {
+  document.title = route.meta.title
+})
