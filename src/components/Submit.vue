@@ -5,9 +5,7 @@
     <img id="tips" src="static/submit_tips.svg" />
     <div id="tips2" >请留下您的联系方式，方便工作人员与您联系。</div>
     <input type="number" id="phone" placeholder="手机号" v-bind:style="{ borderColor: $route.params.color }"></input>
-    <button v-on:click="submit">
-      <img id="submit" src="static/submit.svg" />
-    </button>
+    <img id="submit" src="static/submit.svg" v-on:click="submit"/>
   </div>
 </template>
 
