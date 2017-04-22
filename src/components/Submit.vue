@@ -74,7 +74,7 @@ export default {
           path: 'feedback',
           query: {
             'objectId': file.id,
-            'count': Number(count)
+            'count': count
           }
         })
       }, (error) => {

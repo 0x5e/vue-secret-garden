@@ -14,6 +14,7 @@ new Vue({
   components: { App }
 })
 
-router.afterEach(route => {
-  document.title = route.meta.title
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || document.title
+  next()
 })
