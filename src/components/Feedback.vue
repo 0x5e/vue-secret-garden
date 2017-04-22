@@ -6,6 +6,10 @@
       <div class="text">请在接收到手机短信之后</div>
       <div class="text">前往月牙楼525认领哦~</div>
     </div>
+    <div class="bottom">
+      <img src="../assets/feedback_bg2.svg" />
+    </div>
+
   </div>
 </template>
 
@@ -28,7 +32,7 @@ export default {
   /*margin: 5vw;*/
 }
 .text-container {
-  margin: 5vw;
+  margin: 0 auto;
   margin-top: 15vh;
   width: 90vw;
   height: 50vh;
@@ -46,5 +50,10 @@ export default {
 .index {
   color: #84AD4F;
   font-size: 6vw;
+}
+.bottom {
+  margin: 0 auto;
+  width: 90vw;
+  height: auto;
 }
 </style>
