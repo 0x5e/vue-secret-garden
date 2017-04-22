@@ -80,12 +80,12 @@ export default {
   margin-left: 5vw;
   margin-right: 5vw;
 
-  border: 0.6vw solid;
+  border: 1.5px solid;
   border-radius: 5vw;
   /*border-color: #ff5800;*/
 }
 .pic {
-  height: 35vw;
+  height: 34vw;
   width: 90vw;
   object-fit: cover;
   opacity: 0.25;
@@ -93,11 +93,10 @@ export default {
 }
 .text {
   position: absolute;
-  vertical-align: middle;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  font-size: 4vw;
+  font-size: 4.5vw;
+
+  width: 100%;
+  line-height: 34vw;
+  text-align: center;
 }
 </style>

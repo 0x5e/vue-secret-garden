@@ -1,7 +1,7 @@
 <template>
   <div class="paint">
     <canvas id="canvas" v-on:click="click" hidden></canvas>
-    <color-picker ref="picker"></color-picker>
+    <color-picker ref="picker" v-bind:colors="$route.params.colors"></color-picker>
     <button id="done-btn" v-on:click="next">✅</button>
   </div>
 </template>

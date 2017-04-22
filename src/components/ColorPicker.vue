@@ -21,20 +21,11 @@
 <script>
 export default {
   name: 'color-picker',
+  props: ['colors'],
+
   data () {
     return {
       index: 0,
-      colors: [
-        '#247ba0',
-        '#70c1b3',
-        '#b2dbbf',
-        '#f3ffbd',
-        '#50514f',
-        '#ff1654',
-        '#f25f5c',
-        '#ffe066',
-        '#ffffff'
-      ],
       hidden: true
     }
   },

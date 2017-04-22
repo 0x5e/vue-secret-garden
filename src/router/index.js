@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Main from '@/components/Main'
 import Select from '@/components/Select'
+import SelectColor from '@/components/SelectColor'
 import Paint from '@/components/Paint'
 import Submit from '@/components/Submit'
 import Feedback from '@/components/Feedback'
@@ -29,6 +30,14 @@ export default new Router({
       component: Select,
       meta: {
         title: ''
+      }
+    },
+    {
+      path: '/select_color',
+      name: 'SelectColor',
+      component: SelectColor,
+      meta: {
+        title: '配色'
       }
     },
     {

@@ -1,9 +1,11 @@
 <template>
   <div class="feedback">
-    <div>您的马克杯正在孕育</div>
-    <div>它将成为第0位马克宝宝</div>
-    <div>请在接收到手机短信之后</div>
-    <div>前往月牙楼525认领哦~</div>
+    <div class="text-container">
+      <div class="text">您的马克杯正在孕育</div>
+      <div class="text">它将成为<span class="index">第{{$route.query.count + 1}}位</span>马克宝宝</div>
+      <div class="text">请在接收到手机短信之后</div>
+      <div class="text">前往月牙楼525认领哦~</div>
+    </div>
   </div>
 </template>
 
@@ -25,30 +27,24 @@ export default {
 .feedback {
   /*margin: 5vw;*/
 }
-.item {
-  position: relative;
-  margin: 2vw;
+.text-container {
+  margin: 5vw;
+  margin-top: 15vh;
+  width: 90vw;
+  height: 50vh;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
+
+  background: url(../assets/feedback_bg.svg) no-repeat center;
+}
+.text {
+  font-size: 5vw;
+  line-height: 8vw;
 }
 .index {
-  /*background: #ff5800;*/
-  color: #ffffff;
-  width: 5vw;
-  height: 5vw;
-  border-radius: 50%;
-  font-size: 3vw;
-  margin: 2vw;
-  vertical-align: middle;
-}
-.pic {
-  height: 40vw;
-  width: 95vw;
-  object-fit: cover;
-
-  border: 0.6vw solid;
-  border-radius: 5vw;
-  /*border-color: #ff5800;*/
+  color: #84AD4F;
+  font-size: 6vw;
 }
 </style>

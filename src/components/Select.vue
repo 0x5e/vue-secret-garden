@@ -5,7 +5,7 @@
       :key="idx">
       <div class="index"
         v-bind:style="{ background: $route.params.color }">{{idx+1}}</div>
-      <router-link :to="{name: 'Paint', params: {'img': img, 'color': $route.params.color } }">
+      <router-link :to="{name: 'SelectColor', params: {'img': img, 'color': $route.params.color } }">
         <img class="pic"
           v-bind:src="img"
           v-bind:style="{ borderColor: $route.params.color }"></img>
@@ -21,8 +21,14 @@ export default {
     return {
     }
   },
+
+  beforeCreate () {
+    if (!this.$route.params.imgs) {
+      this.$router.replace('/')
+    }
+  },
+
   mounted () {
-    // console.log(this.$route.params)
     document.title = this.$route.params.name
   }
 }
@@ -44,17 +50,18 @@ export default {
   color: #ffffff;
   width: 5vw;
   height: 5vw;
+  line-height: 5vw;
   border-radius: 50%;
   font-size: 3vw;
   margin: 2vw;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
 }
 .pic {
   height: 40vw;
   width: 95vw;
   object-fit: cover;
 
-  border: 0.6vw solid;
+  border: 1.5px solid;
   border-radius: 5vw;
   /*border-color: #ff5800;*/
 }

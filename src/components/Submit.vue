@@ -2,10 +2,10 @@
   <div class="submit">
     <div class="title">您的佳作</div>
     <img class="pic" v-bind:style="{ borderColor: $route.params.color }" v-bind:src="$route.params.img"></img>
-    <img id="tips" src="static/submit_tips.svg" />
+    <img id="tips" />
     <div id="tips2" >请留下您的联系方式，方便工作人员与您联系。</div>
     <input type="number" id="phone" placeholder="手机号" v-bind:style="{ borderColor: $route.params.color }"></input>
-    <img id="submit" src="static/submit.svg" v-on:click="submit"/>
+    <img id="submit" v-on:click="submit"/>
   </div>
 </template>
 
@@ -57,14 +57,8 @@ export default {
         }
       }, {}).then((file) => {
         console.log(file)
-        alert('上传成功！')
-        // this.queryCounter()
-        this.$router.push({
-          path: 'feedback',
-          query: {
-            'objectId': file.id
-          }
-        })
+        // alert('上传成功！')
+        this.queryCounter(file)
       }, (error) => {
         console.error(error)
         alert('上传失败！')
@@ -72,12 +66,20 @@ export default {
       })
     },
 
-    queryCounter () {
+    queryCounter (file) {
       var query = new AV.Query('_File')
       query.count().then((count) => {
-        alert('count: ' + count)
+        // alert('count: ' + count)
+        this.$router.push({
+          path: 'feedback',
+          query: {
+            'objectId': file.id,
+            'count': count
+          }
+        })
       }, (error) => {
         console.log(error)
+        alert(error)
       })
     }
   },
@@ -101,37 +103,41 @@ export default {
 .pic {
   height: 80vw;
   width: 90vw;
-  /*object-fit: cover;*/
-  object-fit: contain;
+  object-fit: cover;
+  /*object-fit: contain;*/
 
-  border: 0.6vw solid;
+  border: 1.5px solid;
   border-radius: 5vw;
   /*border-color: #ff5800;*/
 }
 #tips {
   width: 50vw;
-  /*height: 10vw;*/
-  height: auto;
+  height: 15vw;
+  /*height: auto;*/
   display: block;
   margin: 6vw;
+
+  background: url(../assets/submit_tips.svg) no-repeat;
 }
 #tips2 {
-  font-size: 3vw;
+  font-size: 3.5vw;
   margin: 3vw;
 }
 #phone {
   width: 75vw;
   padding: 2vw;
-  font-size: 4vw;
+  font-size: 3.5vw;
 
-  border: 0.6vw solid;
+  border: 1.5px solid;
   border-radius: 5vw;
   /*border-color: #ff5800;*/
   padding-left: 3vw;
 }
 #submit {
   width: 45vw;
-  height: auto;
+  height: 20vw;
+  /*height: auto;*/
   margin: 8vw;
+  background: url(../assets/submit.svg) no-repeat;
 }
 </style>
