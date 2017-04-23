@@ -1,45 +1,34 @@
 <template>
   <div class="color-picker">
-    <div class="block-container" v-bind:hidden="hidden">
-      <div class="block"
-        v-for="(item, idx) in colors"
-        v-bind:style="{ background: item }"
-        v-bind:class="{ active: idx === index }"
-        v-bind:title="idx"
-        v-on:click="select">
-      </div>
-    </div>
-    <button class="tool-btn"
+    <div class="circle"
+      v-for="(color, idx) in colors"
+      v-bind:class="{ first: (idx == 0), active: (selection === 'true') && (idx === index) }"
       v-bind:style="{ background: color }"
-      v-on:click="hidden = !hidden"
-      v-bind:hidden="!hidden">
-      ✏
-    </button>
+      v-bind:title="idx"
+      v-on:click="select"/>
   </div>
 </template>
 
 <script>
 export default {
   name: 'color-picker',
-  props: ['colors'],
+  props: ['colors', 'selection'],
 
   data () {
     return {
-      index: 0,
-      hidden: true
+      index: 0
     }
   },
 
   computed: {
     color () {
-      return this.colors[this.index]
+      return this.colors ? this.colors[this.index] : ''
     }
   },
 
   methods: {
     select (event) {
       this.index = parseInt(event.toElement.title)
-      this.hidden = true
       console.log('select: ' + this.color)
     }
   },
@@ -55,34 +44,24 @@ export default {
 
 <style scoped>
 .color-picker {
-  /*position: absolute;*/
+  display: flex;
+  flex-flow: row wrap;
+  width: 54vw;
 }
-.tool-btn {
-  width: 10vw;
-  height: 10vw;
-  border-width: 0;
+.circle {
+  width: 9vw;
+  height: 9vw;
+  display: inline-block;
+  margin: 1.5vw;
 
-  position: fixed;
-  left: 5vw;
-  bottom: 5vh;
+  border-radius: 50%;
+  box-shadow: 0px 0px 1px #B0B0B0;
 }
-.block-container {
-  width: 25vw;
-  height: 25vw;
-  padding: 5vw;
-
-  position: fixed;
-  left: 5vw;
-  bottom: 5vh;
-  background: #b0b0b0;
-}
-.block {
-  width: 5vw;
-  height: 5vw;
-  float: left;
-  border: 0.5vw solid rgba(0, 0, 0, 0);
+.first {
+  margin-left: 7.5vw;
 }
 .active {
+  /*box-shadow: 0px 0px 1px #FFFFFF;*/
   border: 0.5vw solid black;
 }
 </style>

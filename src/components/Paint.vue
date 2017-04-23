@@ -1,8 +1,13 @@
 <template>
   <div class="paint">
-    <canvas id="canvas" v-on:click="click" hidden></canvas>
-    <color-picker ref="picker" v-bind:colors="$route.params.colors"></color-picker>
-    <button id="done-btn" v-on:click="next">✅</button>
+    <canvas id="canvas" v-on:click="click" hidden />
+    <img class="btn" id="back-btn" src="../assets/tool.svg" v-on:click="backward" />
+    <img class="btn" id="done-btn" src="../assets/tool.svg" v-on:click="next" />
+    <img class="btn" id="forward-btn" src="../assets/tool.svg" v-on:click="forward" />
+    <div class="picker-container">
+      <img id="fold-btn" src="../assets/fold.svg" v-on:click="fold" />
+      <color-picker ref="picker" v-bind:colors="$route.params.colors" selection="true" />
+    </div>
   </div>
 </template>
 
@@ -17,7 +22,7 @@ export default {
   name: 'paint',
   data () {
     return {
-
+      picker_hidden: false
     }
   },
 
@@ -100,6 +105,18 @@ export default {
       this.ctx.fillFlood(x, y, 32)
     },
 
+    fold () {
+
+    },
+
+    backward () {
+
+    },
+
+    forward () {
+
+    },
+
     next () {
       let params = this.$route.params
       params.img = this.canvas.toDataURL('image/png')
@@ -124,17 +141,48 @@ export default {
   height: 100vh;
   overflow: scroll;
 }
+.picker-container {
+  position: fixed;
+  left: 5vw;
+  bottom: 5vh;
+  background: rgba(0, 0, 0, 0.1);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  border-radius: 5vw;
+  padding: 2vw;
+}
+#fold-btn {
+  width: 15vw;
+  height: 20vw;
+  padding: 5vw;
+}
 #canvas {
   background: #ffffff;
 }
-#done-btn {
+.btn {
   width: 10vw;
   height: 10vw;
-  background: #303030;
-  border-width: 0;
+  padding: 2vw;
+  background: rgba(0, 0, 0, 0.1);
 
   position: fixed;
-  right: 5vw;
-  bottom: 5vh;
+  top: 5vw;
+
+  object-fit: cover;
+}
+#back-btn {
+  left: 15vw;
+  object-position: left;
+}
+#done-btn {
+  left: 45vw;
+  object-position: center;
+}
+#forward-btn {
+  right: 15vw;
+  object-position: right;
 }
 </style>

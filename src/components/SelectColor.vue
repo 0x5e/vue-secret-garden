@@ -1,14 +1,10 @@
 <template>
   <div class="select_color">
-    <div class="head"></div>
     <div class="item" 
       v-for="(item, idx) in list"
       :key="idx">
       <router-link :to="{name: 'Paint', params: {'img': $route.params.img, 'color': $route.params.color, 'colors': item.colors } }">
-        <div class="circle_container">
-          <div class="start"></div>
-          <div class="circle" v-for="color in item.colors" v-bind:style="{ background: color }"></div>
-        </div>
+        <color-picker v-bind:colors="item.colors" />
       </router-link>
       <div class="desc">{{item.desc}}</div>
     </div>
@@ -16,6 +12,7 @@
 </template>
 
 <script>
+import ColorPicker from './ColorPicker'
 
 export default {
   name: 'select_color',
@@ -40,13 +37,17 @@ export default {
     if (!this.$route.params.img) {
       this.$router.replace('/')
     }
+  },
+
+  components: {
+    ColorPicker
   }
 }
 </script>
 
 <style scoped>
-.head {
-  height: 10vw;
+.select_color {
+  padding-top: 10vw;
 }
 .item {
   position: relative;
@@ -54,27 +55,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.circle_container {
-  display: flex;
-  flex-flow: row wrap;
-  width: 60vw;
-  margin-left: 6vw;
-}
-.start {
-  position: relative;
-  display: inline-block;
-  width: 4.5vw;
-  margin: 1.5vw;
-}
-.circle {
-  width: 9vw;
-  height: 9vw;
-  display: inline-block;
-  margin: 1.5vw;
-
-  border-radius: 50%;
-  box-shadow: 0px 0px 1px #B0B0B0;
 }
 .desc {
   margin: 5vw;
