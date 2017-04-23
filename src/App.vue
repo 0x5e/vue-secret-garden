@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -35,5 +37,24 @@ html {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1.5s;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0;
+}
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all 1.5s ease;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+}
+.slide-fade-enter, .slide-fade-leave-active {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>
