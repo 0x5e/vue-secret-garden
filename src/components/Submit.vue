@@ -114,7 +114,8 @@ export default {
   width: 50vw;
   height: auto;
   display: block;
-  margin: 6vw;
+  margin: 3vw;
+  margin-left: 6vw;
 }
 #tips2 {
   font-size: 3.5vw;
@@ -133,6 +134,6 @@ export default {
 #submit {
   width: 45vw;
   height: auto;
-  margin: 8vw;
+  margin: 5vw;
 }
 </style>

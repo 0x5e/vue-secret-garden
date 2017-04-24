@@ -1,6 +1,6 @@
 <template>
   <div class="paint">
-    <canvas id="canvas" v-on:click="click" hidden />
+    <canvas id="canvas" v-on:click="click" />
     <img class="btn" id="back-btn" src="../assets/tool.svg" v-on:click="backward" />
     <img class="btn" id="done-btn" src="../assets/tool.svg" v-on:click="next" />
     <img class="btn" id="forward-btn" src="../assets/tool.svg" v-on:click="forward" />
@@ -54,6 +54,8 @@ export default {
     loadImage () {
       let img = new Image()
       img.src = this.$route.params.img
+
+      this.canvas.hidden = true
       img.onload = () => {
         this.canvas.width = img.width
         this.canvas.height = img.height
