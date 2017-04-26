@@ -17,6 +17,7 @@ import PinchZoom from 'pinch-zoom'
 import ColorPicker from './ColorPicker'
 import $ from 'jquery'
 import Panzoom from 'jquery.panzoom' // eslint-disable-line
+import objectFitImages from 'object-fit-images' // eslint-disable-line
 
 export default {
   name: 'paint',
@@ -48,6 +49,7 @@ export default {
     }
 
     this.loadImage()
+    objectFitImages('img.btn')
   },
 
   methods: {
@@ -178,13 +180,16 @@ export default {
 #back-btn {
   left: 15vw;
   object-position: left;
+  font-family: 'object-fit: cover; object-position: left;';
 }
 #done-btn {
   left: 45vw;
   object-position: center;
+  font-family: 'object-fit: cover; object-position: center;';
 }
 #forward-btn {
   right: 15vw;
   object-position: right;
+  font-family: 'object-fit: cover; object-position: right;';
 }
 </style>
