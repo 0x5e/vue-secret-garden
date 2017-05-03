@@ -1,15 +1,17 @@
 <template>
   <div class="paint">
-    <canvas id="canvas" v-on:click="click" />
-    <div class="btn" id="back-btn" v-on:click="backward" />
-    <div class="btn" id="done-btn" v-on:click="next" />
-    <div class="btn" id="forward-btn" v-on:click="forward" />
-    <div class="picker-container" v-if="!picker_hidden" >
-      <img id="fold-btn" src="../assets/unfold.svg" v-on:click="fold" />
+    <canvas id="canvas" width="100vw" height="100vh" v-on:click="click" />
+    <div class="tool-bar">
+      <div id="back-btn" v-on:click="backward" />
+      <div id="done-btn" v-on:click="next" />
+      <div id="forward-btn" v-on:click="forward" />
+    </div>
+    <div class="picker-container" v-if="!pickerHidden" >
+      <div id="unfold-btn" v-on:click="fold" />
       <color-picker ref="picker" v-bind:colors="$route.params.colors" selection="true" />
     </div>
     <div class="picker-container" v-else >
-      <img id="fold-btn" src="../assets/fold.svg" v-on:click="fold" />
+      <div id="fold-btn" v-on:click="fold" />
     </div>
   </div>
 </template>
@@ -25,7 +27,8 @@ export default {
   name: 'paint',
   data () {
     return {
-      picker_hidden: false
+      pickerHidden: false,
+      pinchZoom: null
     }
   },
 
@@ -74,7 +77,7 @@ export default {
     },
 
     pinchZoomInit () {
-      PinchZoom(this.canvas, {
+      this.pinchZoom = PinchZoom(this.canvas, {
         draggable: true,
         maxScale: 5
       })
@@ -111,11 +114,11 @@ export default {
     },
 
     fold () {
-      this.picker_hidden = !this.picker_hidden
+      this.pickerHidden = !this.pickerHidden
     },
 
     backward () {
-
+      this.pinchZoom.reset()
     },
 
     forward () {
@@ -150,7 +153,7 @@ export default {
   position: fixed;
   left: 5vw;
   bottom: 5vh;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.1);
 
   display: flex;
   flex-direction: row;
@@ -158,37 +161,50 @@ export default {
 
   border-radius: 5vw;
   padding: 2vw;
+
+  height: 25vw;
+}
+#unfold-btn {
+  width: 5vw;
+  height: 10vw;
+  background: url(../assets/unfold.svg) no-repeat center;
 }
 #fold-btn {
   width: 5vw;
-  height: 20vw;
-  padding-top: 5vw;
-  padding-bottom: 5vw; 
+  height: 10vw;
+  background: url(../assets/fold.svg) no-repeat center;
 }
 #canvas {
   background: #ffffff;
 }
-.btn {
-  width: 6vw;
-  height: 6vw;
-  margin: 2vw;
-  /*padding: 2vw;*/
-  /*background: rgba(0, 0, 0, 0.1);*/
-
+.tool-bar {
   position: fixed;
-  top: 5vw;
+  top: 0vw;
+  width: 100vw;
+  height: 15vw;
 
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+
+  background-color: rgba(0, 0, 0, 0.1); 
+}
+.tool-bar div {
+  width: 10vw;
+  height: 10vw;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60% 60%;
 }
 #back-btn {
-  left: 15vw;
-  background: url(../assets/backward-btn.svg) no-repeat center;
+  background-image: url(../assets/backward-btn.svg);
 }
 #done-btn {
-  left: 45vw;
-  background: url(../assets/done-btn.svg) no-repeat center;
+  background-image: url(../assets/done-btn.svg);
 }
 #forward-btn {
-  right: 15vw;
-  background: url(../assets/forward-btn.svg) no-repeat center;
+  background-image: url(../assets/forward-btn.svg);
 }
 </style>
