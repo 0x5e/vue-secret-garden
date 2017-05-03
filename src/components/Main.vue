@@ -6,7 +6,7 @@
       :key="idx">
       <div class="text">{{item.desc}}</div>
       <router-link :to="{name: 'Select', params: item}">
-        <img class="pic" v-bind:src="item.img"></img>
+        <img class="pic" v-bind:src="item.imgs[0]"></img>
       </router-link>
     </div>
   </div>
@@ -22,44 +22,37 @@ export default {
           name: '樱·猫咪',
           desc: '樱花树下橘猫清澈的眸子',
           color: '#EECA7D',
-          img: 'static/tiane03.png',
           imgs: [
-            'static/tiane03.png',
-            'static/tiane03.png',
-            'static/tiane03.png'
+            'static/paints/猫被子.png',
+            'static/paints/猫描边.svg',
+            'static/paints/猫叶.svg',
+            'static/paints/线条猫.svg'
           ]
         },
         {
           name: '荷·锦鲤',
           desc: '立夏三日下荷塘与鱼嬉戏',
           color: '#85AE51',
-          img: 'static/secret1.1.png',
           imgs: [
-            'static/secret1.1.png',
-            'static/secret1.1.png',
-            'static/secret1.1.png'
+            'static/paints/藕.svg'
           ]
         },
         {
           name: '葵·松鼠',
           desc: '黄昏向日葵看向松鼠尾巴',
           color: '#E87D5C',
-          img: 'static/secret2.1.png',
           imgs: [
-            'static/secret2.1.png',
-            'static/secret2.1.png',
-            'static/secret2.1.png'
+            'static/paints/松鼠穿裤子.svg',
+            'static/paints/松鼠徽.svg'
           ]
         },
         {
           name: '梅·天鹅',
           desc: '倒映天空黑天鹅细嗅红梅',
           color: '#3E4C55',
-          img: 'static/secret3.1.png',
           imgs: [
-            'static/secret3.1.png',
-            'static/secret3.1.png',
-            'static/secret3.1.png'
+            'static/paints/爱心鹅.svg',
+            'static/paints/羽毛飘飘.svg'
           ]
         }
       ]
@@ -88,7 +81,7 @@ export default {
   height: 34vw;
   width: 90vw;
   object-fit: cover;
-  opacity: 0.25;
+  opacity: 0.5;
   border-radius: 5vw;
 }
 .text {

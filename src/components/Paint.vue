@@ -1,12 +1,15 @@
 <template>
   <div class="paint">
     <canvas id="canvas" v-on:click="click" />
-    <img class="btn" id="back-btn" src="../assets/tool.svg" v-on:click="backward" />
-    <img class="btn" id="done-btn" src="../assets/tool.svg" v-on:click="next" />
-    <img class="btn" id="forward-btn" src="../assets/tool.svg" v-on:click="forward" />
-    <div class="picker-container">
-      <img id="fold-btn" src="../assets/fold.svg" v-on:click="fold" />
+    <div class="btn" id="back-btn" v-on:click="backward" />
+    <div class="btn" id="done-btn" v-on:click="next" />
+    <div class="btn" id="forward-btn" v-on:click="forward" />
+    <div class="picker-container" v-if="!picker_hidden" >
+      <img id="fold-btn" src="../assets/unfold.svg" v-on:click="fold" />
       <color-picker ref="picker" v-bind:colors="$route.params.colors" selection="true" />
+    </div>
+    <div class="picker-container" v-else >
+      <img id="fold-btn" src="../assets/fold.svg" v-on:click="fold" />
     </div>
   </div>
 </template>
@@ -15,9 +18,8 @@
 import 'floodfill'
 import PinchZoom from 'pinch-zoom'
 import ColorPicker from './ColorPicker'
-import $ from 'jquery'
+import $ from 'jquery' // eslint-disable-line
 import Panzoom from 'jquery.panzoom' // eslint-disable-line
-import objectFitImages from 'object-fit-images' // eslint-disable-line
 
 export default {
   name: 'paint',
@@ -49,7 +51,6 @@ export default {
     }
 
     this.loadImage()
-    objectFitImages('img.btn')
   },
 
   methods: {
@@ -59,9 +60,9 @@ export default {
 
       this.canvas.hidden = true
       img.onload = () => {
+        this.canvas.hidden = false
         this.canvas.width = img.width
         this.canvas.height = img.height
-        this.canvas.hidden = false
 
         this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 
@@ -110,7 +111,7 @@ export default {
     },
 
     fold () {
-
+      this.picker_hidden = !this.picker_hidden
     },
 
     backward () {
@@ -149,7 +150,7 @@ export default {
   position: fixed;
   left: 5vw;
   bottom: 5vh;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.05);
 
   display: flex;
   flex-direction: row;
@@ -159,37 +160,35 @@ export default {
   padding: 2vw;
 }
 #fold-btn {
-  width: 15vw;
+  width: 5vw;
   height: 20vw;
-  padding: 5vw;
+  padding-top: 5vw;
+  padding-bottom: 5vw; 
 }
 #canvas {
   background: #ffffff;
 }
 .btn {
-  width: 10vw;
-  height: 10vw;
-  padding: 2vw;
-  background: rgba(0, 0, 0, 0.1);
+  width: 6vw;
+  height: 6vw;
+  margin: 2vw;
+  /*padding: 2vw;*/
+  /*background: rgba(0, 0, 0, 0.1);*/
 
   position: fixed;
   top: 5vw;
 
-  object-fit: cover;
 }
 #back-btn {
   left: 15vw;
-  object-position: left;
-  font-family: 'object-fit: cover; object-position: left;';
+  background: url(../assets/backward-btn.svg) no-repeat center;
 }
 #done-btn {
   left: 45vw;
-  object-position: center;
-  font-family: 'object-fit: cover; object-position: center;';
+  background: url(../assets/done-btn.svg) no-repeat center;
 }
 #forward-btn {
   right: 15vw;
-  object-position: right;
-  font-family: 'object-fit: cover; object-position: right;';
+  background: url(../assets/forward-btn.svg) no-repeat center;
 }
 </style>

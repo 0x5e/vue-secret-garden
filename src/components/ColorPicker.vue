@@ -46,19 +46,22 @@ export default {
 .color-picker {
   display: flex;
   flex-flow: row wrap;
-  width: 54vw;
+  width: 72vw; /* (circle.width + circle.margin * 2) * (count + 0.5) */
 }
 .circle {
-  width: 9vw;
-  height: 9vw;
+  width: 8vw;
+  height: 8vw;
   display: inline-block;
-  margin: 1.5vw;
+  margin-left: 1.5vw;
+  margin-right: 1.5vw;
+  margin-top: 0.75vw;
+  margin-bottom: 0.75vw;
 
   border-radius: 50%;
   box-shadow: 0px 0px 1px #B0B0B0;
 }
 .first {
-  margin-left: 7.5vw;
+  margin-left: 7.5vw; /* circle.width * 0.5 + circle.margin * 2 */
 }
 .active {
   /*box-shadow: 0px 0px 1px #FFFFFF;*/
