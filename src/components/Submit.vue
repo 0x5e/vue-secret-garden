@@ -1,5 +1,6 @@
 <template>
   <div class="submit">
+    <div id="loading" v-if="loading" />
     <div class="title">您的佳作</div>
     <img class="pic" v-bind:style="{ borderColor: $route.params.color }" v-bind:src="$route.params.img"></img>
     <img id="tips" src="../assets/submit_tips.svg"/>
@@ -16,7 +17,7 @@ export default {
   name: 'submit',
   data () {
     return {
-
+      loading: false
     }
   },
 
@@ -48,11 +49,10 @@ export default {
       file.metaData('author', this.author)
       file.metaData('phone', this.phone)
 
-      let btn = document.getElementById('submit')
-      btn.disabled = true
+      this.loading = true
       file.save({
         onprogress: (e) => {
-          if (e.direction === 'upload') { return }
+          if (e.direction !== 'upload') { return }
           console.log('progress: ' + e.progress)
         }
       }, {}).then((file) => {
@@ -60,9 +60,9 @@ export default {
         // alert('上传成功！')
         this.queryCounter(file)
       }, (error) => {
+        this.loading = false
         console.error(error)
         alert('上传失败！')
-        btn.disabled = false
       })
     },
 
@@ -78,6 +78,7 @@ export default {
           }
         })
       }, (error) => {
+        this.loading = false
         console.log(error)
         alert(error)
       })
@@ -135,5 +136,12 @@ export default {
   width: 45vw;
   height: auto;
   margin: 5vw;
+}
+#loading {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+
+  background-color: rgba(0, 0, 0, 0.2);
 }
 </style>

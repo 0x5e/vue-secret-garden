@@ -39,7 +39,7 @@ html {
           box-sizing: border-box;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 1.5s;
+  transition: opacity 1s;
   position: absolute;
   width: 100vw;
   height: 100vh;
@@ -48,7 +48,7 @@ html {
   opacity: 0;
 }
 .slide-fade-enter-active, .slide-fade-leave-active {
-  transition: all 1.5s ease;
+  transition: all 1s ease;
   position: absolute;
   width: 100vw;
   height: 100vh;

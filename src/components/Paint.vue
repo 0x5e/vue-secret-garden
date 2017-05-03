@@ -188,7 +188,7 @@ export default {
   align-items: center;
   justify-content: space-around;
 
-  background-color: rgba(0, 0, 0, 0.1); 
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .tool-bar div {
   width: 10vw;
