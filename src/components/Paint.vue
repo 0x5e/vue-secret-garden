@@ -10,7 +10,7 @@
       <div id="unfold-btn" v-on:click="pickerHidden = !pickerHidden" />
       <color-picker ref="picker" v-bind:colors="$route.params.colors" selection="true" />
     </div>
-    <div class="picker-container" v-else >
+    <div class="picker-container" v-bind:style="{backgroundColor: 'transparent'}" v-else >
       <div id="fold-btn" v-on:click="pickerHidden = !pickerHidden" />
     </div>
   </div>
@@ -18,9 +18,9 @@
 
 <script>
 import ColorPicker from './ColorPicker'
-import sprintf from 'sprintf' // eslint-disable-line
+import sprintf from 'sprintf'
 import floodfill from 'floodfill' // eslint-disable-line
-import Hammer from 'hammerjs' // eslint-disable-line
+import Hammer from 'hammerjs'
 
 export default {
   name: 'paint',
@@ -84,7 +84,7 @@ export default {
 
       this.minScale = minScale
       this.maxScale = maxScale * 4.0
-      // this.scale = maxScale
+      this.scale = maxScale
 
       // TODO: bounce效果
       // TODO: 初始化缩放动画
@@ -240,7 +240,7 @@ export default {
   background: url(../assets/unfold.svg) no-repeat center;
 }
 #fold-btn {
-  width: 5vw;
+  width: 15vw;
   height: 10vw;
   background: url(../assets/fold.svg) no-repeat center;
 }
@@ -255,23 +255,24 @@ export default {
   align-items: center;
   justify-content: space-around;
 
-  background-color: rgba(0, 0, 0, 0.1);
+  /*background-color: rgba(0, 0, 0, 0.1);*/
 }
 .tool-bar div {
-  width: 10vw;
-  height: 10vw;
+  width: 24vw;
+  height: 8vw;
 
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 60% 60%;
+  background-size: 100% 100%;
+  /*background-color: white;*/
 }
 #back-btn {
-  background-image: url(../assets/backward-btn.svg);
+  background-image: url(../assets/backward-btn.png);
 }
 #done-btn {
-  background-image: url(../assets/done-btn.svg);
+  background-image: url(../assets/done-btn.png);
 }
 #forward-btn {
-  background-image: url(../assets/forward-btn.svg);
+  background-image: url(../assets/forward-btn.png);
 }
 </style>
