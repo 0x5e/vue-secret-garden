@@ -12,14 +12,14 @@
 </template>
 
 <script>
-import config from '../config'
+import AV from 'leancloud-storage'
 import ColorPicker from './ColorPicker'
 
 export default {
   name: 'select_color',
   data () {
     return {
-      list: config.colorList
+      list: []
     }
   },
 
@@ -27,6 +27,12 @@ export default {
     if (!this.$route.params.img) {
       this.$router.replace('/')
     }
+  },
+
+  mounted () {
+    new AV.Query('color').find().then((colors) => {
+      this.list = colors.map((color) => { return color.attributes })
+    })
   },
 
   components: {

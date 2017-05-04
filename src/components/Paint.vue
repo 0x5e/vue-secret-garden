@@ -68,7 +68,7 @@ export default {
     }
 
     this.loadImage(() => {
-      console.log('canvas loaded')
+      console.log('loadImage', {x: this.canvas.width, y: this.canvas.height})
       this.canvas.hidden = false
 
       // 画布居中
@@ -98,13 +98,15 @@ export default {
     loadImage (complete) {
       let img = new Image()
       img.onload = () => {
+        // temp svg resize
+        if (img.src.indexOf('.svg') !== -1) {
+          img.height = 3000 * img.height / img.width
+          img.width = 3000
+        }
+
         // 画布大小
         this.canvas.width = img.width
         this.canvas.height = img.height
-
-        // temp
-        this.canvas.width *= 5
-        this.canvas.height *= 5
 
         this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 
@@ -112,12 +114,12 @@ export default {
           complete()
         }
       }
+      img.crossOrigin = 'Anonymous'
       img.src = this.$route.params.img
     },
 
     HammerInit () {
       var offset = {}
-      var scale = 1.0
 
       let mc = new Hammer(this.canvas)
 
@@ -134,11 +136,11 @@ export default {
       // 画布缩放
       mc.get('pinch').set({enable: true})
       mc.on('pinchstart', (ev) => {
-        scale = this.scale * ev.scale
-        console.log('pinchstart', scale)
+        offset.scale = this.scale * ev.scale
+        console.log('pinchstart', offset.scale)
       })
       mc.on('pinch', (ev) => {
-        this.scale = scale * ev.scale
+        this.scale = offset.scale * ev.scale
         this.scale = Math.min(this.scale, this.maxScale)
         this.scale = Math.max(this.minScale, this.scale)
       })
@@ -156,7 +158,8 @@ export default {
       console.log('click', {x: x, y: y})
 
       let data = this.ctx.getImageData(x, y, 1, 1).data
-      if (data[0] === 0 && data[1] === 0 && data[2] === 0 && data[3] !== 0) {
+      console.log(data)
+      if (data[0] < 0x30 && data[1] < 0x30 && data[2] < 0x30 && data[3] !== 0) {
         console.log('skip the line')
         return
       }
@@ -168,7 +171,7 @@ export default {
 
     fill (x, y, color) {
       this.ctx.fillStyle = color
-      this.ctx.fillFlood(x, y, 300)
+      this.ctx.fillFlood(x, y, 32)
     },
 
     backward () {
@@ -176,6 +179,7 @@ export default {
         return
       }
 
+      console.log('backward')
       this.stepIndex --
       this.loadImage(() => {
         for (var i = 0; i < this.stepIndex && i < this.steps.length; i++) {
@@ -190,6 +194,7 @@ export default {
         return
       }
 
+      console.log('forward')
       let {x, y, color} = this.steps[this.stepIndex ++]
       this.fill(x, y, color)
     },

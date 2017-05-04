@@ -13,14 +13,19 @@
 </template>
 
 <script>
-import config from '../config'
+import AV from 'leancloud-storage'
 
 export default {
   name: 'main',
   data () {
     return {
-      list: config.imgList
+      list: []
     }
+  },
+  mounted () {
+    new AV.Query('item').find().then((items) => {
+      this.list = items.map((item) => { return item.attributes })
+    })
   }
 }
 </script>
