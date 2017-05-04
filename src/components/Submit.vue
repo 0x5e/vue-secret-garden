@@ -48,6 +48,7 @@ export default {
       let file = new AV.File('canvas.png', data)
       file.metaData('author', this.author)
       file.metaData('phone', this.phone)
+      file.metaData('steps', this.$route.params.steps)
 
       this.loading = true
       file.save({

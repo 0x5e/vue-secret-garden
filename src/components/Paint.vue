@@ -27,6 +27,10 @@ export default {
   data () {
     return {
       pickerHidden: false,
+      steps: [
+        // {x: 0, y: 0, color: '#ff5800'}
+      ],
+      stepIndex: 0,
       offset: {x: 0, y: 0},
       translate: {x: 0, y: 0},
       scale: 1,
@@ -63,40 +67,47 @@ export default {
       return
     }
 
-    this.loadImage()
+    this.loadImage(() => {
+      console.log('canvas loaded')
+      this.canvas.hidden = false
+
+      // 画布居中
+      this.offset = {x: (window.innerWidth - this.canvas.width) / 2, y: (window.innerHeight - this.canvas.height) / 2}
+
+      // 缩放范围
+      let scaleX = window.innerWidth / this.canvas.width
+      let scaleY = window.innerHeight / this.canvas.height
+      console.log('scale', scaleX, scaleY)
+
+      let minScale = Math.min(scaleX, scaleY)
+      let maxScale = Math.max(scaleX, scaleY)
+
+      this.minScale = minScale
+      this.maxScale = maxScale * 4.0
+      // this.scale = maxScale
+
+      // TODO: bounce效果
+      // TODO: 初始化缩放动画
+
+      this.HammerInit()
+    })
+    this.canvas.hidden = true
   },
 
   methods: {
-    loadImage () {
+    loadImage (complete) {
       let img = new Image()
       img.onload = () => {
-        console.log('canvas loaded')
-        this.canvas.hidden = false
-
         // 画布大小
         this.canvas.width = img.width
         this.canvas.height = img.height
 
-        // 画布居中
-        this.offset = {x: (window.innerWidth - this.canvas.width) / 2, y: (window.innerHeight - this.canvas.height) / 2}
-
-        // 缩放范围
-        let scaleX = window.innerWidth / this.canvas.width
-        let scaleY = window.innerHeight / this.canvas.height
-        console.log('scale', scaleX, scaleY)
-
-        let minScale = Math.min(scaleX, scaleY)
-        let maxScale = Math.max(scaleX, scaleY)
-
-        this.minScale = minScale
-        this.maxScale = maxScale * 4.0
-        // this.scale = maxScale
-
         this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 
-        this.HammerInit()
+        if (complete) {
+          complete()
+        }
       }
-      this.canvas.hidden = true
       img.src = this.$route.params.img
     },
 
@@ -119,7 +130,7 @@ export default {
       // 画布缩放
       mc.get('pinch').set({enable: true})
       mc.on('pinchstart', (ev) => {
-        scale = this.scale
+        scale = this.scale * ev.scale
         console.log('pinchstart', scale)
       })
       mc.on('pinch', (ev) => {
@@ -129,18 +140,9 @@ export default {
       })
 
       // mc.on('tap', (ev) => {
-      //   console.log(ev)
       //   let point = {x: ev.center.x - this.translate.x, y: ev.center.y - this.translate.y}
       //   console.log('tap', point)
-
-      //   let data = this.ctx.getImageData(point.x, point.y, 1, 1).data
-      //   if (data[0] === 0 && data[1] === 0 && data[2] === 0 && data[3] === 255) {
-      //     console.log('skip the line')
-      //     return
-      //   }
-
-      //   this.ctx.fillStyle = this.$refs.picker.color
-      //   this.ctx.fillFlood(point.x, point.y, 32)
+      //   this.fill(point.x, point.y, this.$refs.picker.color)
       // })
     },
 
@@ -150,26 +152,48 @@ export default {
       console.log('click', {x: x, y: y})
 
       let data = this.ctx.getImageData(x, y, 1, 1).data
-      if (data[0] === 0 && data[1] === 0 && data[2] === 0 && data[3] === 255) {
+      if (data[0] === 0 && data[1] === 0 && data[2] === 0 && data[3] !== 0) {
         console.log('skip the line')
         return
       }
 
-      this.ctx.fillStyle = this.$refs.picker.color
-      this.ctx.fillFlood(x, y, 32)
+      this.fill(x, y, this.$refs.picker.color)
+      this.steps = this.steps.slice(0, this.stepIndex++)
+      this.steps.push({x: x, y: y, color: this.$refs.picker.color})
+    },
+
+    fill (x, y, color) {
+      this.ctx.fillStyle = color
+      this.ctx.fillFlood(x, y, 100)
     },
 
     backward () {
-      this.offset = {x: 0, y: 0}
+      if (this.stepIndex <= 0) {
+        return
+      }
+
+      this.stepIndex --
+      this.loadImage(() => {
+        for (var i = 0; i < this.stepIndex && i < this.steps.length; i++) {
+          let {x, y, color} = this.steps[i]
+          this.fill(x, y, color)
+        }
+      })
     },
 
     forward () {
+      if (this.stepIndex >= this.steps.length) {
+        return
+      }
 
+      let {x, y, color} = this.steps[this.stepIndex ++]
+      this.fill(x, y, color)
     },
 
     next () {
       let params = this.$route.params
       params.img = this.canvas.toDataURL('image/png')
+      params.steps = this.steps.slice(0, this.stepIndex)
       this.$router.push({
         name: 'Submit',
         params: params

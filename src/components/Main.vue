@@ -23,10 +23,8 @@ export default {
           desc: '樱花树下橘猫清澈的眸子',
           color: '#EECA7D',
           imgs: [
-            'static/paints/猫被子.png',
-            'static/paints/猫描边.svg',
-            'static/paints/猫叶.svg',
-            'static/paints/线条猫.svg'
+            'static/png/300dpi交错（优先试）/24X9.5cm猫叶.png',
+            'static/png/300dpi交错（优先试）/24X9.5cm线条猫.png'
           ]
         },
         {
@@ -34,7 +32,7 @@ export default {
           desc: '立夏三日下荷塘与鱼嬉戏',
           color: '#85AE51',
           imgs: [
-            'static/paints/藕.svg'
+            'static/png/300dpi交错（优先试）/24X9.5cm藕.png'
           ]
         },
         {
@@ -42,8 +40,7 @@ export default {
           desc: '黄昏向日葵看向松鼠尾巴',
           color: '#E87D5C',
           imgs: [
-            'static/paints/松鼠穿裤子.svg',
-            'static/paints/松鼠徽.svg'
+            'static/png/300dpi交错（优先试）/24X9.5cm松鼠穿裤子.png'
           ]
         },
         {
@@ -51,8 +48,7 @@ export default {
           desc: '倒映天空黑天鹅细嗅红梅',
           color: '#3E4C55',
           imgs: [
-            'static/paints/爱心鹅.svg',
-            'static/paints/羽毛飘飘.svg'
+            'static/png/300dpi交错（优先试）/24X9.5cm天鹅.png'
           ]
         }
       ]
