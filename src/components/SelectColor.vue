@@ -12,24 +12,14 @@
 </template>
 
 <script>
+import config from '../config'
 import ColorPicker from './ColorPicker'
 
 export default {
   name: 'select_color',
   data () {
     return {
-      list: [{
-        'desc': '少女的第一盘眼影',
-        'colors': ['#6F0051', '#971B40', '#FAB3AF', '#FCC584', '#F0D6E3', '#E2DEF0', '#EF766D', '#F2A6B3', '#FECFBB', '#FDE3B2', '#E97585', '#E95166']
-      },
-      {
-        'desc': '凌晨六点窗沿有雾气',
-        'colors': ['#C8D3F3', '#F3F8ED', '#DCECF2', '#C1D9EA', '#97B9D8', '#A1C0EE', '#42576A', '#717D9B', '#A7748A', '#C1B6B0', '#ECCE90', '#E0D6A3']
-      },
-      {
-        'desc': '小河边上浮萍初现',
-        'colors': ['#8BB297', '#8F8373', '#D8907A', '#C2D3A6', '#D3E28D', '#93D9F2', '#1E8B88', '#CAE37B', '#8D9C1F', '#6D7A66', '#CED8D9', '#B3C8BA']
-      }]
+      list: config.colorList
     }
   },
 

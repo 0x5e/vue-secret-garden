@@ -102,6 +102,10 @@ export default {
         this.canvas.width = img.width
         this.canvas.height = img.height
 
+        // temp
+        this.canvas.width *= 5
+        this.canvas.height *= 5
+
         this.ctx.drawImage(img, 0, 0, this.canvas.width, this.canvas.height)
 
         if (complete) {
@@ -164,7 +168,7 @@ export default {
 
     fill (x, y, color) {
       this.ctx.fillStyle = color
-      this.ctx.fillFlood(x, y, 100)
+      this.ctx.fillFlood(x, y, 300)
     },
 
     backward () {

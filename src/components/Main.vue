@@ -13,45 +13,13 @@
 </template>
 
 <script>
+import config from '../config'
+
 export default {
   name: 'main',
   data () {
     return {
-      list: [
-        {
-          name: '樱·猫咪',
-          desc: '樱花树下橘猫清澈的眸子',
-          color: '#EECA7D',
-          imgs: [
-            'static/png/300dpi交错（优先试）/24X9.5cm猫叶.png',
-            'static/png/300dpi交错（优先试）/24X9.5cm线条猫.png'
-          ]
-        },
-        {
-          name: '荷·锦鲤',
-          desc: '立夏三日下荷塘与鱼嬉戏',
-          color: '#85AE51',
-          imgs: [
-            'static/png/300dpi交错（优先试）/24X9.5cm藕.png'
-          ]
-        },
-        {
-          name: '葵·松鼠',
-          desc: '黄昏向日葵看向松鼠尾巴',
-          color: '#E87D5C',
-          imgs: [
-            'static/png/300dpi交错（优先试）/24X9.5cm松鼠穿裤子.png'
-          ]
-        },
-        {
-          name: '梅·天鹅',
-          desc: '倒映天空黑天鹅细嗅红梅',
-          color: '#3E4C55',
-          imgs: [
-            'static/png/300dpi交错（优先试）/24X9.5cm天鹅.png'
-          ]
-        }
-      ]
+      list: config.imgList
     }
   }
 }
