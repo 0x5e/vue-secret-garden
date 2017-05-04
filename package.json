@@ -11,10 +11,9 @@
   },
   "dependencies": {
     "floodfill": "0x5e/floodfill.js",
-    "jquery": "^3.2.1",
-    "jquery.panzoom": "^3.2.2",
+    "hammerjs": "^2.0.8",
     "leancloud-storage": "^2.1.4",
-    "pinch-zoom": "^0.3.8",
+    "sprintf": "^0.1.5",
     "vue": "^2.2.2",
     "vue-router": "^2.2.0"
   },
