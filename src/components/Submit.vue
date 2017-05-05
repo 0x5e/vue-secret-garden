@@ -2,10 +2,10 @@
   <div class="submit">
     <div id="loading" v-if="loading" />
     <div class="title">您的佳作</div>
-    <img class="pic" v-bind:style="{ borderColor: $route.params.color }" v-bind:src="$route.params.img"></img>
+    <img class="pic" v-bind:style="borderStyle" v-bind:src="$route.params.img"></img>
     <img id="tips" src="../assets/submit_tips.svg"/>
     <div id="tips2" >请留下您的联系方式，方便工作人员与您联系。</div>
-    <input type="number" id="phone" placeholder="手机号" v-bind:style="{ borderColor: $route.params.color }"></input>
+    <input type="number" id="phone" placeholder="手机号" v-bind:style="borderStyle" v-model="phone" />
     <img id="submit" src="../assets/submit.svg" v-on:click="submit"/>
   </div>
 </template>
@@ -17,13 +17,11 @@ export default {
   name: 'submit',
   data () {
     return {
-      loading: false
-    }
-  },
-
-  computed: {
-    phone () {
-      return document.getElementById('phone').value
+      loading: false,
+      phone: '',
+      borderStyle: {
+        borderColor: this.$route.params.color
+      }
     }
   },
 

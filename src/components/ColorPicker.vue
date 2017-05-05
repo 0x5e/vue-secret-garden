@@ -2,7 +2,7 @@
   <div class="color-picker">
     <div class="circle"
       v-for="(color, idx) in colors"
-      v-bind:class="{ first: (idx == 0), active: (selection === 'true') && (idx === index) }"
+      v-bind:class="{ first: (idx == 0), active: selection != null && (idx === index) }"
       v-bind:style="{ background: color }"
       v-bind:title="idx"
       v-on:click="select"/>

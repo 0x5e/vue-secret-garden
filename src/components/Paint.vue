@@ -7,11 +7,11 @@
       <div id="forward-btn" v-on:click="forward" />
     </div>
     <div class="picker-container" v-if="!pickerHidden" >
-      <div id="unfold-btn" v-on:click="pickerHidden = !pickerHidden" />
-      <color-picker ref="picker" v-bind:colors="$route.params.colors" selection="true" />
+      <div id="unfold-btn" v-on:click="pickerHidden = true" />
+      <color-picker ref="picker" v-bind:colors="$route.params.colors" selection />
     </div>
-    <div class="picker-container" v-bind:style="{backgroundColor: 'transparent'}" v-else >
-      <div id="fold-btn" v-on:click="pickerHidden = !pickerHidden" />
+    <div class="picker-container transparent" v-else >
+      <div id="fold-btn" v-on:click="pickerHidden = false" />
     </div>
   </div>
 </template>
@@ -242,6 +242,9 @@ export default {
   padding: 2vw;
 
   height: 25vw;
+}
+.transparent {
+  background: transparent;
 }
 #unfold-btn {
   width: 5vw;

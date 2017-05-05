@@ -6,16 +6,24 @@
       <div>请在接收到手机短信之后</div>
       <div>前往月牙楼525认领哦~</div>
     </div>
-    <img class="bottom" src="../assets/feedback_bg2.svg" />
+    <div class="bottom">
+      <img class="qr" src="../assets/qr.png" />
+    </div>
   </div>
 </template>
 
 <style scoped>
+.feedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .text-container {
-  margin: 0 auto;
-  margin-top: 15vh;
   width: 90vw;
   height: 50vh;
+
+  margin: 0 auto;
+  margin-top: 15vh;
 
   display: flex;
   flex-direction: column;
@@ -32,5 +40,15 @@
 }
 .bottom {
   width: 90vw;
+  height: 50vw;
+  background: url(../assets/feedback_bg2.svg) no-repeat center;
+
+}
+.qr {
+  width: 18vw;
+  height: 18vw;
+
+  margin-left: 65vw;
+  margin-top: 25vw;
 }
 </style>
