@@ -24,9 +24,6 @@ export default {
   computed: {
     phone () {
       return document.getElementById('phone').value
-    },
-    author () {
-      return ''
     }
   },
 
@@ -46,41 +43,25 @@ export default {
       let b64data = this.$route.params.img.replace(/^data:image\/(png|jpg);base64,/, '')
       let data = {base64: b64data}
       let file = new AV.File('canvas.png', data)
-      file.metaData('author', this.author)
-      file.metaData('phone', this.phone)
-      file.metaData('steps', this.$route.params.steps)
+
+      let imgObject = new (AV.Object.extend('canvas'))()
+      imgObject.set('phone', this.phone)
+      imgObject.set('steps', this.$route.params.steps)
+      imgObject.set('url', file)
 
       this.loading = true
-      file.save({
-        onprogress: (e) => {
-          if (e.direction !== 'upload') { return }
-          console.log('progress: ' + e.progress)
-        }
-      }, {}).then((file) => {
-        console.log(file)
-        // alert('上传成功！')
-        this.queryCounter(file)
-      }, (error) => {
-        this.loading = false
-        console.error(error)
-        alert('上传失败！')
-      })
-    },
-
-    queryCounter (file) {
-      var query = new AV.Query('_File')
-      query.count().then((count) => {
-        // alert('count: ' + count)
+      imgObject.save({}, {fetchWhenSave: true}).then((object) => {
+        console.log(object)
         this.$router.push({
           path: 'feedback',
           query: {
-            'objectId': file.id,
-            'count': count
+            'objectId': object.id,
+            'count': object.attributes.index
           }
         })
       }, (error) => {
         this.loading = false
-        console.log(error)
+        console.error(error)
         alert(error)
       })
     }
