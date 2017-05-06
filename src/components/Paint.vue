@@ -98,12 +98,6 @@ export default {
     loadImage (complete) {
       let img = new Image()
       img.onload = () => {
-        // temp svg resize
-        if (img.src.indexOf('.svg') !== -1) {
-          img.height = 3000 * img.height / img.width
-          img.width = 3000
-        }
-
         // 画布大小
         this.canvas.width = img.width
         this.canvas.height = img.height
