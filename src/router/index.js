@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Main from '@/components/Main'
-import Select from '@/components/Select'
+import SelectCanvas from '@/components/SelectCanvas'
 import SelectColor from '@/components/SelectColor'
 import Paint from '@/components/Paint'
 import Submit from '@/components/Submit'
@@ -25,15 +25,15 @@ export default new Router({
       }
     },
     {
-      path: '/select',
-      name: 'Select',
-      component: Select,
+      path: '/select-canvas',
+      name: 'SelectCanvas',
+      component: SelectCanvas,
       meta: {
         title: ''
       }
     },
     {
-      path: '/select_color',
+      path: '/select-color',
       name: 'SelectColor',
       component: SelectColor,
       meta: {

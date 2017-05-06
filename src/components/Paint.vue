@@ -23,7 +23,6 @@ import floodfill from 'floodfill' // eslint-disable-line
 import Hammer from 'hammerjs'
 
 export default {
-  name: 'paint',
   data () {
     return {
       pickerHidden: false,

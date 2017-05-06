@@ -2,10 +2,10 @@
   <div class="main">
     <div class="item" 
       v-for="(item, idx) in list"
-      v-bind:style="{ borderColor: item.color, color: item.color }"
+      v-bind:style="{ borderColor: item.border, color: item.border }"
       :key="idx">
       <div class="text">{{item.desc}}</div>
-      <router-link :to="{name: 'Select', params: item}">
+      <router-link :to="{name: 'SelectCanvas', params: item}">
         <img class="pic" v-bind:src="item.imgs[0]"></img>
       </router-link>
     </div>
@@ -13,18 +13,27 @@
 </template>
 
 <script>
+// import config from '../config'
 import AV from 'leancloud-storage'
 
 export default {
-  name: 'main',
   data () {
     return {
       list: []
     }
   },
+
   mounted () {
-    new AV.Query('item').find().then((items) => {
-      this.list = items.map((item) => { return item.attributes })
+    // console.log(JSON.stringify(config))
+    // this.list = config.items
+
+    new AV.Query('config').first().then((object) => {
+      console.log(object)
+      let config = object.attributes.data
+      this.list = config.items
+    }, (error) => {
+      console.error(error)
+      alert(error)
     })
   }
 }

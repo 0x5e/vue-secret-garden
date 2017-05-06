@@ -11,7 +11,6 @@
 
 <script>
 export default {
-  name: 'color-picker',
   props: ['colors', 'selection'],
 
   data () {

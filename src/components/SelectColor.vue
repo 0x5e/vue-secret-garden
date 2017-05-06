@@ -1,9 +1,9 @@
 <template>
-  <div class="select_color">
+  <div class="select-color">
     <div class="item" 
-      v-for="(item, idx) in list"
+      v-for="(item, idx) in $route.params.colors"
       :key="idx">
-      <router-link :to="{name: 'Paint', params: {'img': $route.params.img, 'color': $route.params.color, 'colors': item.colors } }">
+      <router-link :to="{name: 'Paint', params: {img: $route.params.img, border: $route.params.border, colors: item.colors } }">
         <color-picker v-bind:colors="item.colors" />
       </router-link>
       <div class="desc">{{item.desc}}</div>
@@ -12,27 +12,13 @@
 </template>
 
 <script>
-import AV from 'leancloud-storage'
 import ColorPicker from './ColorPicker'
 
 export default {
-  name: 'select_color',
-  data () {
-    return {
-      list: []
-    }
-  },
-
   beforeCreate () {
     if (!this.$route.params.img) {
       this.$router.replace('/')
     }
-  },
-
-  mounted () {
-    new AV.Query('color').find().then((colors) => {
-      this.list = colors.map((color) => { return color.attributes })
-    })
   },
 
   components: {
@@ -42,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-.select_color {
+.select-color {
   padding-top: 10vw;
 }
 .item {

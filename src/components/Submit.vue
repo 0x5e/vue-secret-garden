@@ -14,13 +14,12 @@
 import AV from 'leancloud-storage'
 
 export default {
-  name: 'submit',
   data () {
     return {
       loading: false,
       phone: '',
       borderStyle: {
-        borderColor: this.$route.params.color
+        borderColor: this.$route.params.border
       }
     }
   },

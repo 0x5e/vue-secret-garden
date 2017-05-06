@@ -1,14 +1,14 @@
 <template>
-  <div class="select">
+  <div class="select-canvas">
     <div class="item" 
       v-for="(img, idx) in $route.params.imgs"
       :key="idx">
       <div class="index"
-        v-bind:style="{ background: $route.params.color }">{{idx+1}}</div>
-      <router-link :to="{name: 'SelectColor', params: {'img': img, 'color': $route.params.color } }">
+        v-bind:style="{ background: $route.params.border }">{{idx+1}}</div>
+      <router-link :to="{name: 'SelectColor', params: {img: img, border: $route.params.border, colors: $route.params.colors } }">
         <img class="pic"
           v-bind:src="img"
-          v-bind:style="{ borderColor: $route.params.color }"></img>
+          v-bind:style="{ borderColor: $route.params.border }"></img>
       </router-link>
     </div>
   </div>
@@ -16,12 +16,6 @@
 
 <script>
 export default {
-  name: 'select',
-  data () {
-    return {
-    }
-  },
-
   beforeCreate () {
     if (!this.$route.params.imgs) {
       this.$router.replace('/')
