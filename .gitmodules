@@ -1,0 +1,4 @@
+[submodule "dist"]
+	path = dist
+	url = git@git.coding.net:0x5e/fancyapp.git
+	branch = coding-pages
