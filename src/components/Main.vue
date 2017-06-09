@@ -9,6 +9,9 @@
         <img class="pic" v-bind:src="item.imgs[0]"></img>
       </router-link>
     </div>
+    <div class="coding-banner">
+      <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+    </div>
   </div>
 </template>
 
@@ -69,5 +72,10 @@ export default {
   width: 100%;
   line-height: 34vw;
   text-align: center;
+}
+.coding-banner * {
+  color: #b0b0b0;
+  font-size: 10px;
+  text-decoration: none;
 }
 </style>
