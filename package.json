@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "floodfill": "0x5e/floodfill.js",
+    "floodfill": "^2.1.1",
     "hammerjs": "^2.0.8",
     "leancloud-storage": "^2.1.4",
     "sprintf": "^0.1.5",

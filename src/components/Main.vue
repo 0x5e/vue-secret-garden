@@ -10,7 +10,11 @@
       </router-link>
     </div>
     <div class="coding-banner">
-      <p>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></p>
+      <p>
+        Hosted by 
+        <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a>
+        <br><a href="https://leancloud.cn/dashboard/data.html?appid=IjU4EYmuxCwdJcgI9gVamsSL-gzGzoHsz#/canvas" style="font-weight: bold">Manage</a>
+      </p>
     </div>
   </div>
 </template>

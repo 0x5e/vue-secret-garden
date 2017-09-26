@@ -39,6 +39,9 @@ export default {
   },
 
   computed: {
+    canvasId () {
+      return this.$route.params.img.match(/\w+.svg/) + '/' + this.$route.params.colors[0]
+    },
     canvas () {
       return document.getElementById('canvas')
     },
@@ -89,6 +92,8 @@ export default {
       // TODO: 初始化缩放动画
 
       this.HammerInit()
+
+      this.loadFromLocalStorage()
     })
     this.canvas.hidden = true
   },
@@ -160,6 +165,8 @@ export default {
       this.fill(x, y, this.$refs.picker.color)
       this.steps = this.steps.slice(0, this.stepIndex++)
       this.steps.push({x: x, y: y, color: this.$refs.picker.color})
+
+      this.saveToLocalStorage()
     },
 
     fill (x, y, color) {
@@ -192,10 +199,38 @@ export default {
       this.fill(x, y, color)
     },
 
+    saveToLocalStorage () {
+      console.log('save to localStorage')
+      localStorage.setItem(this.canvasId, JSON.stringify(this.steps.slice(0, this.stepIndex)))
+    },
+
+    loadFromLocalStorage () {
+      let steps = JSON.parse(localStorage.getItem(this.canvasId))
+      if (!steps) {
+        return
+      }
+
+      console.log('load from localStorage')
+      this.loadImage(() => {
+        this.steps = steps
+        this.stepIndex = steps.length
+        steps.forEach((step) => {
+          let {x, y, color} = step
+          this.fill(x, y, color)
+        })
+      })
+    },
+
+    clearLocalStorage () {
+      console.log('clear localStorage')
+      localStorage.removeItem(this.canvasId)
+    },
+
     next () {
       let params = this.$route.params
       params.img = this.canvas.toDataURL('image/png')
       params.steps = this.steps.slice(0, this.stepIndex)
+      this.clearLocalStorage()
       this.$router.push({
         name: 'Submit',
         params: params
